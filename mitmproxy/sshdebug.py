@@ -11,6 +11,7 @@ import sys
 
 try:
     from Crypto import Util
+    from Crypto.Util import number
 except ImportError:
     sys.stderr.write("PyCrypto not installed! Install or disable ssh debug.")
     sys.exit(1)
@@ -652,7 +653,7 @@ def get_mpint(payload, count=1):
     index = 0
     for _ in range(count):
         length, = struct.unpack('>L', payload[index:index+4])
-        mpints.append(Util.number.bytes_to_long(
+        mpints.append(number.bytes_to_long(
             payload[index+4:index+4+length]))
         index += 4 + length
     return (mpints, payload[index:])
